@@ -1,36 +1,48 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    public float thrustforce = 1f;
+    private float elapsedTime = 0f;
+    private float score = 0f;
+    
+    public float scoreMultiplier = 10f;
+    public float thrustForce = 1f;
+    
     Rigidbody2D rb;
+    
+    public UIDocument uiDocument;
+    private Label scoreText;
+        
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLable");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Mouse.current.leftButton.isPressed)
-        {
-            //caluated the mouse direction 
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
-            Vector2 direction = (mousePosition - transform.position) .normalized;
-
+        elapsedTime += Time.deltaTime;
+        score = Mathf.FloorToInt(elapsedTime * scoreMultiplier);
+        scoreText.text = "Score: " + score;
+        
+        if (Mouse.current.leftButton.isPressed) {
             
-            //move the player in direction of mouse 
+            // Calculate mouse direction
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
+            Vector2 direction = (mousePos - transform.position).normalized;
+            
+            // Move player in direction of mouse
             transform.up = direction;
-            rb.AddForce(direction * thrustforce);
-
+            rb.AddForce(direction * thrustForce);
         }
         
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
     }
+
 }
