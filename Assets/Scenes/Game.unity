@@ -973,9 +973,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b6eb38f316d389458ffcb815b967a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  scoreMultiplayer: 10
-  thrustforce: 2
+  scoreMultiplier: 10
+  thrustForce: 1
   uiDocument: {fileID: 1352419293}
+  explosionEffect: {fileID: 4598020898451996262, guid: 33e58209038d6174fb51040b52084906, type: 3}
 --- !u!4 &1130291189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6178284864384485346, guid: df0201f137510ab429321852aae32702, type: 3}
@@ -1160,7 +1161,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 80db436f1608c4e4ba996d7263a63874, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: d7cbbfd8eacf5524dbca053fd6fccb52, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920

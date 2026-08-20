@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private float elapsedTime = 0f;
@@ -14,11 +14,18 @@ public class PlayerController : MonoBehaviour
     
     public UIDocument uiDocument;
     private Label scoreText;
+    
+    private Button restartButton;
+    public GameObject explosionEffect;
         
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLable");
+        restartButton = uiDocument.rootVisualElement.Q<Button>("RestartButton");
+        restartButton.style.display = DisplayStyle.None;
+        restartButton.clicked += RelodeScene; 
+        
     }
 
     void Update()
@@ -43,6 +50,13 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);
+        Instantiate(explosionEffect ,transform.position, transform.rotation);
+        restartButton.style.display = DisplayStyle.Flex;
+    }
+
+    void RelodeScene()
+    {
+     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }
